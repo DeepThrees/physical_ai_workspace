@@ -1,0 +1,20 @@
+__pycache__/
+*.pyc
+*.sqlite3
+workspace_memory/*.sqlite3
+.venv/
+venv/
+.DS_Store
+
+# 외부 참조 파일 제외
+references/
+
+# Python 및 가상환경 제외
+__pycache__/
+*.py[cod]
+venv/
+env/
+
+# 로컬 원장(DB) 및 시스템 임시 파일 제외
+workspace_memory/ledger.sqlite3
+.DS_Store
