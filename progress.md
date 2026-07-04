@@ -32,7 +32,7 @@
 
 ## Phase 2 — 다음 단계 (예정)
 
-- [ ] `apps/safety`: Safety Policy 모델 + TTC/동역학 한계 검증 로직 + Approval Receipt 발행
+- [X] `apps/safety`: Safety Policy 모델 + TTC/동역학 한계 검증 로직 + Approval Receipt 발행
 - [X] `apps/planning`: Command Ticket 모델 + 경로/조향 계획 로직
 - [ ] `apps/execution`: Execution Boundary — 승인된 명령만 ROS2 토픽으로 발행하는 게이트웨이
 - [ ] 앱별 `migrations/` 생성 및 `manage.py migrate` 검증
