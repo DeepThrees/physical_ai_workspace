@@ -35,5 +35,9 @@
 - [X] `apps/safety`: Safety Policy 모델 + TTC/동역학 한계 검증 로직 + Approval Receipt 발행
 - [X] `apps/planning`: Command Ticket 모델 + 경로/조향 계획 로직
 - [X] `apps/execution`: Execution Boundary — 승인된 명령만 ROS2 토픽으로 발행하는 게이트웨이
-- [ ] 앱별 `migrations/` 생성 및 `manage.py migrate` 검증
+- [X] 앱별 `migrations/` 생성 및 `manage.py migrate` 검증
+  - `apps/planning`, `apps/safety`, `apps/execution` 각각 `migrations/0001_initial.py` 생성.
+  - 로컬 `workspace_memory/ledger.sqlite3`에 `manage.py migrate` 적용 완료.
+  - `manage.py createsuperuser`로 관리자 계정 생성 완료, `/admin/`에서 세 앱 모델(`CommandTicket`, `SafetyPolicy`, `ApprovalReceipt`, `ExecutionRecord`) 조회 가능.
+- [X] Django Admin 등록 — `apps/planning/admin.py`, `apps/safety/admin.py`, `apps/execution/admin.py`에 `references/TradingCodex`의 admin 패턴을 참고해 `list_display`/`list_filter`/`search_fields`/`date_hierarchy` 구성.
 - [ ] Workspace Plane ↔ Service Plane 간 파일 기반 통신 규약 정의 (`workspace_memory/command_tickets/` 포맷)
