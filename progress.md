@@ -41,3 +41,9 @@
   - `manage.py createsuperuser`로 관리자 계정 생성 완료, `/admin/`에서 세 앱 모델(`CommandTicket`, `SafetyPolicy`, `ApprovalReceipt`, `ExecutionRecord`) 조회 가능.
 - [X] Django Admin 등록 — `apps/planning/admin.py`, `apps/safety/admin.py`, `apps/execution/admin.py`에 `references/TradingCodex`의 admin 패턴을 참고해 `list_display`/`list_filter`/`search_fields`/`date_hierarchy` 구성.
 - [ ] Workspace Plane ↔ Service Plane 간 파일 기반 통신 규약 정의 (`workspace_memory/command_tickets/` 포맷)
+
+## Phase 3 — Safety Gatekeeper 승인 로직 개발 및 검증 (완료)
+
+- [x] `apps/safety/services.py`에 `evaluate_command_ticket` 핵심 검증 엔진 구현 완료
+- [x] 트랜잭션(Transaction) 원자성 확보, 승인 영수증 유효기간(TTL) 설정, 데이터 무결성을 위한 해싱(Hashing) 도입
+- [x] 장고 쉘(Django Shell) 및 Admin 웹 화면을 통한 티켓 상태 변환(`DRAFT` -> `REJECTED`) 및 반려 영수증 자동 발행 로컬 테스트 성공
