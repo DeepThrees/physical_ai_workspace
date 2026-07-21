@@ -34,6 +34,9 @@
 
 - [X] `apps/safety`: Safety Policy 모델 + TTC/동역학 한계 검증 로직 + Approval Receipt 발행
 - [X] `apps/planning`: Command Ticket 모델 + 경로/조향 계획 로직
+  - `apps/planning/services.py`에 `create_command_ticket` 핵심 생성 로직 구현 완료 (DRAFT 상태 강제, payload 유연성 확보)
+  - 범용적인 조향 제어를 위한 `create_straight_drive_ticket`, `create_circular_drive_ticket` 헬퍼 함수 구현 완료
+  - Ackermann 제어 명령 시 필수 파라미터(속도, 조향각) 누락 방지를 위한 유효성 검증 로직 추가
 - [X] `apps/execution`: Execution Boundary — 승인된 명령만 ROS2 토픽으로 발행하는 게이트웨이
 - [X] 앱별 `migrations/` 생성 및 `manage.py migrate` 검증
   - `apps/planning`, `apps/safety`, `apps/execution` 각각 `migrations/0001_initial.py` 생성.
