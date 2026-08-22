@@ -38,6 +38,9 @@
   - 범용적인 조향 제어를 위한 `create_straight_drive_ticket`, `create_circular_drive_ticket` 헬퍼 함수 구현 완료
   - Ackermann 제어 명령 시 필수 파라미터(속도, 조향각) 누락 방지를 위한 유효성 검증 로직 추가
 - [X] `apps/execution`: Execution Boundary — 승인된 명령만 ROS2 토픽으로 발행하는 게이트웨이
+  - `apps/execution/services.py`에 `dispatch_command_ticket` 핵심 실행 로직 구현 완료
+  - APPROVED 상태의 티켓만 ExecutionRecord로 기록하고, 원본 티켓 상태를 EXECUTING으로 안전하게 전이 (트랜잭션 및 멱등성 보장)
+  - 로봇 제어 명령 3단계 파이프라인(생성 -> 안전 검열 -> 실행) End-to-End 로컬 테스트 완료
 - [X] 앱별 `migrations/` 생성 및 `manage.py migrate` 검증
   - `apps/planning`, `apps/safety`, `apps/execution` 각각 `migrations/0001_initial.py` 생성.
   - 로컬 `workspace_memory/ledger.sqlite3`에 `manage.py migrate` 적용 완료.
