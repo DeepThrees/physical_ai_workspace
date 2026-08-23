@@ -46,7 +46,11 @@
   - 로컬 `workspace_memory/ledger.sqlite3`에 `manage.py migrate` 적용 완료.
   - `manage.py createsuperuser`로 관리자 계정 생성 완료, `/admin/`에서 세 앱 모델(`CommandTicket`, `SafetyPolicy`, `ApprovalReceipt`, `ExecutionRecord`) 조회 가능.
 - [X] Django Admin 등록 — `apps/planning/admin.py`, `apps/safety/admin.py`, `apps/execution/admin.py`에 `references/TradingCodex`의 admin 패턴을 참고해 `list_display`/`list_filter`/`search_fields`/`date_hierarchy` 구성.
-- [ ] Workspace Plane ↔ Service Plane 간 파일 기반 통신 규약 정의 (`workspace_memory/command_tickets/` 포맷)
+- [X] Workspace Plane ↔ Service Plane 간 파일 기반 통신 규약 정의 (`workspace_memory/command_tickets/` 포맷)
+  - `apps/planning/management/commands/process_workspace.py` 커스텀 커맨드 구현 완료
+  - `workspace_memory/command_tickets/` 폴더의 JSON 파일을 읽어 들여 [생성 -> 검열 -> 실행]의 3단계 파이프라인을 자동화 처리하는 로직 완성
+  - 중복 실행 방지를 위한 `archive/` 디렉토리 파일 이동 처리 및 에러 핸들링 도입
+  - 가상의 LLM JSON 명령서를 활용한 E2E(End-to-End) 파이프라인 통합 테스트 완료
 
 ## Phase 3 — Safety Gatekeeper 승인 로직 개발 및 검증 (완료)
 

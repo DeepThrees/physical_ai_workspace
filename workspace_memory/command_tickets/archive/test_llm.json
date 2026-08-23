@@ -1,0 +1,8 @@
+{
+  "robot_id": "F1TENTH-LLM-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.5,
+  "steering_angle": 0.1,
+  "max_duration_ms": 1000,
+  "natural_language_source": "앞에 장애물이 보여서 속도를 줄이고 오른쪽으로 살짝 틀게요!"
+}
