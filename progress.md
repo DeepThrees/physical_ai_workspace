@@ -57,3 +57,13 @@
 - [x] `apps/safety/services.py`에 `evaluate_command_ticket` 핵심 검증 엔진 구현 완료
 - [x] 트랜잭션(Transaction) 원자성 확보, 승인 영수증 유효기간(TTL) 설정, 데이터 무결성을 위한 해싱(Hashing) 도입
 - [x] 장고 쉘(Django Shell) 및 Admin 웹 화면을 통한 티켓 상태 변환(`DRAFT` -> `REJECTED`) 및 반려 영수증 자동 발행 로컬 테스트 성공
+
+## Phase 4 — Workspace Plane (AI Agent) 연동 (완료)
+
+- [X] `agents/autonomous_agent.py` 독립 에이전트 스크립트 구현
+  - 구글 신규 `google-genai` SDK 및 `gemini-2.5-flash` 모델 적용 완료
+  - 주변 환경(센서) 텍스트 요약을 바탕으로 목표 속도와 조향각을 추론하는 프롬프트 엔지니어링 적용
+  - 모델 응답을 완벽한 JSON(`CommandTicket` 양식)으로 강제 출력하고, 물리적 한계치(`_clamp`) 방어 로직 적용
+- [X] End-to-End 파이프라인 통합 테스트 성공
+  - AI 에이전트가 생성한 JSON 명령서를 `workspace_memory/command_tickets/` 디렉토리에 비동기 저장
+  - Django의 `process_workspace` 커맨드가 이를 읽어 [티켓 생성 -> 방화벽 검열(APPROVED) -> 실행(Dispatch)] 하는 전체 파이프라인 100% 정상 작동 확인
