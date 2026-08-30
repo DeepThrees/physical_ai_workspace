@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.5,
+  "steering_angle": -0.3,
+  "max_duration_ms": 1000,
+  "natural_language_source": "분석한 환경에서 주행을 안전하게 수행하기 위해 좌측으로 약간 회전하며 빠른 속도로 이동합니다."
+}

@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.3,
+  "steering_angle": -0.5,
+  "max_duration_ms": 1000,
+  "natural_language_source": "전방 여유 공간이 0.49m로 좁아져 있으며, 좌측 여유 공간이 넓기 때문에 좌측으로 회전하여 안전한 경로를 유지합니다."
+}

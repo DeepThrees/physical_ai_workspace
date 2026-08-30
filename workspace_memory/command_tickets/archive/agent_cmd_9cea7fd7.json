@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.3,
+  "steering_angle": 0.2,
+  "max_duration_ms": 1000,
+  "natural_language_source": "환경 분석 결과, 현재 좌측 여유 공간이 가장 넓어 주행 방향을 좌측으로 꺾어 주행합니다."
+}

@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.3,
+  "steering_angle": -0.2,
+  "max_duration_ms": 1000,
+  "natural_language_source": "전방 여유 공간이 2.11m로 가장 넓고, 좌측과 우측 공간도 괜찮지만, 왼쪽 방향으로 꺾어 우측에서의 차량에 피해를 주지 않도록 합니다."
+}

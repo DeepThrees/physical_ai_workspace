@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.65,
+  "steering_angle": 0.4,
+  "max_duration_ms": 1000,
+  "natural_language_source": "현재 좌측에 1.38m의 차량이 존재하고, 우측에는 0.29m의 차량이 있으며, 전방 여유 공간이 4.09m입니다. 이러한 상황을 고려하여 우측으로 회전하여 차량을 회피합니다."
+}

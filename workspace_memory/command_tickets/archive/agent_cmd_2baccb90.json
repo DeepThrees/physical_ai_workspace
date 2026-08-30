@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.2,
+  "steering_angle": -0.5,
+  "max_duration_ms": 1000,
+  "natural_language_source": "전방 여유 공간이 2.69m로 넓지만 좌측이 0.26m로 매우 좁아, 최대 조향으로 좌측 방향으로 제어를 취함."
+}

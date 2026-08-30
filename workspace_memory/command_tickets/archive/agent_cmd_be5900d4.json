@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.75,
+  "steering_angle": 0.25,
+  "max_duration_ms": 1000,
+  "natural_language_source": "주변 환경에 따라 우측으로 조금 더 회전하여 좌측을 주의 깊게 살피고 있습니다."
+}

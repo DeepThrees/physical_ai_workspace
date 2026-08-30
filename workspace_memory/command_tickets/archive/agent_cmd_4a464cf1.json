@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.05,
+  "steering_angle": -0.35,
+  "max_duration_ms": 1000,
+  "natural_language_source": "주변 환경 분석 결과, 좌측으로 10도 회전하여 앞쪽을 더 잘 살펴보고, 적절한 속도로 이동하여 충돌 위험을 줄이기 위해 조절했습니다."
+}

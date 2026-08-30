@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.5,
+  "steering_angle": -0.3,
+  "max_duration_ms": 1000,
+  "natural_language_source": "분석 결과, 좌측과 우측 모두 간격이 넓지만, 현재 직진 속도를 줄이면서 우측으로 조향하여 좌측과의 간격을 유지하는 것이 안전하다고 판단"
+}

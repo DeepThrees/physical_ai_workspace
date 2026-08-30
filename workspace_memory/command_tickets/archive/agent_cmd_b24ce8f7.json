@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.3,
+  "steering_angle": -0.3,
+  "max_duration_ms": 1000,
+  "natural_language_source": "주변 환경에 따라 좌측으로 제어를 변경하여 충돌을 방지합니다."
+}

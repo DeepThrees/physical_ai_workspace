@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.8,
+  "steering_angle": 0.4,
+  "max_duration_ms": 1000,
+  "natural_language_source": "전방 여유 공간이 적은 상태에서 좌측으로 회전하여 우측을 피하는 제어 결정을 했습니다."
+}

@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.8,
+  "steering_angle": -0.3,
+  "max_duration_ms": 1000,
+  "natural_language_source": "주행 환경을 분석한 결과, 앞에 차량이 차지하고 있음을 감안해 좌측으로 꺾어 주행할 예정입니다."
+}

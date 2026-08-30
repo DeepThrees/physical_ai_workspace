@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.75,
+  "steering_angle": -0.3,
+  "max_duration_ms": 1000,
+  "natural_language_source": "현재 좌측과 우측에 많은 여유가 있으나, 전방이 1.37m라는 작은 여유 공간이 있어 왼쪽으로 회전하여 차량의 안전을 확보합니다."
+}

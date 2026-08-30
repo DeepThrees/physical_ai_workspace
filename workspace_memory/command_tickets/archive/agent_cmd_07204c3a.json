@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.3,
+  "steering_angle": 0.3,
+  "max_duration_ms": 1000,
+  "natural_language_source": "현재 환경에서 우측 여유 공간이 가장 넓으므로 우측으로 회전하여 주행을 계속합니다."
+}

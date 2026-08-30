@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.4,
+  "steering_angle": -0.4,
+  "max_duration_ms": 1000,
+  "natural_language_source": "현재 좌측으로 충돌위험에 대비하여 제어를 취하였습니다."
+}

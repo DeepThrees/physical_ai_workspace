@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.0,
+  "steering_angle": 0.3,
+  "max_duration_ms": 1000,
+  "natural_language_source": "현재 좌측 여유 공간이 부족하여 좌회전을 수행하여 충돌을 피하고자 합니다."
+}

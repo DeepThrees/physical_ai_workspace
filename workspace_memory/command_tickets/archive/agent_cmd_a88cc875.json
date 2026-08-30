@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.55,
+  "steering_angle": 0.35,
+  "max_duration_ms": 1000,
+  "natural_language_source": "전방 여유 공간이 1.76m로 가장 넓으며, 좌측과 우측의 여유 공간이 작아서 좌측으로 회전하여 주행 경로를 변경하기로 결정했습니다."
+}

@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.8,
+  "steering_angle": -0.3,
+  "max_duration_ms": 1000,
+  "natural_language_source": "현재 좌측에 작은 차량이 위치해 있어 이를 회피하기 위해 좌측으로 회전하여 주행합니다."
+}

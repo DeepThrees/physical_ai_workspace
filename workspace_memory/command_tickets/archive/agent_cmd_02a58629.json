@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.6,
+  "steering_angle": 0.4,
+  "max_duration_ms": 1000,
+  "natural_language_source": "현재 좌측이 0.18m의 여유 공간을 가지고 있어, 우측으로 회전하여 주행을 이어가기로 결정했습니다."
+}

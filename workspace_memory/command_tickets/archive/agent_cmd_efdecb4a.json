@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.4,
+  "steering_angle": 0.0,
+  "max_duration_ms": 1000,
+  "natural_language_source": "환경 요약을 분석한 결과, 다음 명령을 수행합니다."
+}

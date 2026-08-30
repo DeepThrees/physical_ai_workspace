@@ -1,17 +1,15 @@
 """Autonomy 관제탑 루프.
 
-매 사이클마다 Gemini 에이전트와 Django `process_workspace`를
-순차 실행하고, Rate Limit 방지를 위해 짧게 대기한다.
+매 사이클마다 로컬 Ollama 에이전트와 Django `process_workspace`를
+순차 실행한다.
 """
 from __future__ import annotations
 
 import subprocess
 import sys
-import time
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-CYCLE_SLEEP_SEC = 1.5
 
 
 def main() -> None:
@@ -37,7 +35,6 @@ def main() -> None:
                 f"ERROR: Cycle #{cycle} 실패 — 다음 사이클로 계속합니다: {exc}",
                 file=sys.stderr,
             )
-        time.sleep(CYCLE_SLEEP_SEC)
         cycle += 1
 
 

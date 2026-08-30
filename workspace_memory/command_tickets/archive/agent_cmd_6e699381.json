@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.8,
+  "steering_angle": 0.4,
+  "max_duration_ms": 1000,
+  "natural_language_source": "환경 분석 결과, 앞이 막힌 상황이므로 좌측으로 회전하여 주행을 이어가기로 결정했습니다."
+}

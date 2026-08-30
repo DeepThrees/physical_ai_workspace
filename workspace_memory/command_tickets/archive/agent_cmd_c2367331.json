@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.35,
+  "steering_angle": 0.5,
+  "max_duration_ms": 1000,
+  "natural_language_source": "주변 환경을 분석한 결과, 좌측 공간이 더 좁아서 좌측으로 피하는 것이 최선의 선택입니다."
+}

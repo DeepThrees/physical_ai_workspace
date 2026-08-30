@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.8,
+  "steering_angle": -0.3,
+  "max_duration_ms": 1000,
+  "natural_language_source": "전방 여유 공간이 0.79m로 적절하지만, 좌측과 우측의 공간이 좁아서 좌회전을 통해 차선을 변경합니다."
+}

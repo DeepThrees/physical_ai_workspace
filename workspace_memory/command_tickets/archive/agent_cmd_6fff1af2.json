@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.0,
+  "steering_angle": 0.3,
+  "max_duration_ms": 1000,
+  "natural_language_source": "좌측 여유 공간이 부족해 좌측으로 제어를 조정합니다."
+}

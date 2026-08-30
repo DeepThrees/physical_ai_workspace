@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.5,
+  "steering_angle": -0.3,
+  "max_duration_ms": 1000,
+  "natural_language_source": "현재 좌측과 우측 여유 공간이 충분하지 않아 안정적인 속도로 이동하려고 합니다."
+}

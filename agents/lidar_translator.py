@@ -16,7 +16,7 @@ from sensor_msgs.msg import LaserScan
 
 NODE_NAME = "lidar_translator_node"
 SCAN_TOPIC = "/scan"
-WRITE_INTERVAL_SEC = 0.5
+WRITE_INTERVAL_SEC = 0.05
 WINDOW_DEG = 5.0
 
 FRONT_ANGLE_RAD = 0.0
@@ -41,7 +41,7 @@ class LidarTranslatorNode(Node):
         )
         OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
         self.get_logger().info(
-            f"{SCAN_TOPIC} 구독 시작. 요약은 {WRITE_INTERVAL_SEC:.1f}s 간격으로 "
+            f"{SCAN_TOPIC} 구독 시작. 요약은 {WRITE_INTERVAL_SEC:.2f}s 간격으로 "
             f"{OUTPUT_PATH}에 저장됩니다."
         )
 

@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.4,
+  "steering_angle": 0.5,
+  "max_duration_ms": 1000,
+  "natural_language_source": "환경 분석에 따르면, 우측 공간이 좁아서 좌측으로 피하기로 결정했습니다. 목표 속도는 여유 공간이 가장 큰 왼쪽으로 유지하기 위해 0.4로 설정했습니다."
+}

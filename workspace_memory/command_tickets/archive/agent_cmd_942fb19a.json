@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.2,
+  "steering_angle": -0.3,
+  "max_duration_ms": 1000,
+  "natural_language_source": "분석 결과, 주변 환경에서 좌측으로 완전히 범위 밖으로 피하고 안전한 속도로 이동할 수 있도록 조향각과 속도를 조정했습니다."
+}

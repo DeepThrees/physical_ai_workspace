@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.0,
+  "steering_angle": -0.25,
+  "max_duration_ms": 1000,
+  "natural_language_source": "현재 환경에서 충돌을 피하기 위해 조향각을 왼쪽으로 조절하여 주행 속도를 빠르게 감소시킵니다."
+}

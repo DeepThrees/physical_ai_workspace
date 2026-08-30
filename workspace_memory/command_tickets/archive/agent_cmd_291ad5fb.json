@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.0,
+  "steering_angle": -0.5,
+  "max_duration_ms": 1000,
+  "natural_language_source": "주변 환경에서 좌측 방향으로 작은 조향각을 유지함으로써 충돌을 피하고 안전하게 이동합니다."
+}

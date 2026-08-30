@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.0,
+  "steering_angle": 0.3,
+  "max_duration_ms": 1000,
+  "natural_language_source": "환경 분석 결과, 우측으로 가야 하기 때문에 양수 조향각을 설정했습니다."
+}

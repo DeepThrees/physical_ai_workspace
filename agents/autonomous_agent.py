@@ -1,5 +1,4 @@
-# pip install google-genai
-"""Gemini API 기반 범용 Physical AI 에이전트.
+"""Ollama 로컬 SLM 기반 범용 Physical AI 에이전트.
 
 주변 환경/센서 요약을 분석해 Command Ticket JSON을 생성하고
 `workspace_memory/command_tickets/`에 저장한다.
@@ -7,26 +6,26 @@
 from __future__ import annotations
 
 import json
-import os
 import secrets
 import sys
 import time
+import urllib.error
+import urllib.request
 from pathlib import Path
 
-from google import genai
-from google.genai import types
-
 SYSTEM_PROMPT = (
-    "너는 물리 환경(Physical World)에서 작동하는 자율주행 로봇을 제어하는 "
-    "AI 에이전트야. 제공되는 주변 환경 및 센서 요약 정보를 분석하여, "
-    "충돌을 피하고 안전하게 이동할 수 있도록 목표 속도(0.0~1.0)와 "
-    "조향각(-0.5~0.5)을 결정해."
+    "너는 자율주행 로봇의 제어기야. 주어진 환경 요약을 보고 다음 3가지 규칙 중 하나만 무조건 선택해.\n"
+    "🚨 [절대 주행 규칙]\n"
+    "1. 전방 > 1.2m: 무조건 직진 (target_velocity: 0.4, steering_angle: 0.0)\n"
+    "2. 전방 <= 1.2m 이고 좌측 > 우측: 좌회전 (target_velocity: 0.2, steering_angle: 0.5)\n"
+    "3. 전방 <= 1.2m 이고 우측 > 좌측: 우회전 (target_velocity: 0.2, steering_angle: -0.5)"
 )
 
 ROBOT_ID = "PHYSICAL-AGENT-01"
 COMMAND_TYPE = "ackermann"
 MAX_DURATION_MS = 1000
-MODEL_NAME = "gemini-2.5-flash"
+MODEL_NAME = "qwen2.5:3b"
+OLLAMA_GENERATE_URL = "http://localhost:11434/api/generate"
 
 VELOCITY_MIN = 0.0
 VELOCITY_MAX = 1.0
@@ -57,30 +56,18 @@ def _read_environment_summary() -> str:
 
 
 def _build_user_prompt(summary: str) -> str:
-    return f"""다음 주변 환경 및 센서 요약을 분석하고, 제어 명령을 JSON으로만 응답해.
+    return f"""다음 센서 요약을 분석하고, 제어 명령을 JSON으로만 응답해.
 
 환경 요약:
 {summary}
 
-반드시 아래 키를 모두 포함해:
-- robot_id: "{ROBOT_ID}"
-- command_type: "{COMMAND_TYPE}"
-- target_velocity: 목표 속도 (float, {VELOCITY_MIN}~{VELOCITY_MAX})
-- steering_angle: 조향각 (float, {STEERING_MIN}~{STEERING_MAX}, 좌측 양수 / 우측 음수)
-- max_duration_ms: {MAX_DURATION_MS}
-- natural_language_source: 현재 환경을 분석하고 왜 이런 제어 결정을 내렸는지 1~2줄 설명
+🚨 환경에 따라 아래 3가지 중 하나의 상태로 응답해:
+1. 전방 > 1.2m -> "target_velocity": 0.4, "steering_angle": 0.0
+2. 전방 <= 1.2m & 좌측이 더 넓음 -> "target_velocity": 0.2, "steering_angle": 0.5
+3. 전방 <= 1.2m & 우측이 더 넓음 -> "target_velocity": 0.2, "steering_angle": -0.5
+
+반드시 "robot_id": "{ROBOT_ID}", "command_type": "{COMMAND_TYPE}", "max_duration_ms": {MAX_DURATION_MS}, "natural_language_source" 키를 모두 포함해서 완벽한 JSON으로 출력해.
 """
-
-
-def _require_api_key() -> str:
-    api_key = os.environ.get("GEMINI_API_KEY")
-    if not api_key:
-        print(
-            "ERROR: GEMINI_API_KEY 환경 변수가 설정되어 있지 않습니다.",
-            file=sys.stderr,
-        )
-        sys.exit(1)
-    return api_key
 
 
 def _clamp(value: float, low: float, high: float) -> float:
@@ -110,17 +97,33 @@ def _build_command_ticket(raw: dict) -> dict:
     }
 
 
-def _call_gemini(api_key: str, user_prompt: str) -> dict:
-    client = genai.Client(api_key=api_key)
-    response = client.models.generate_content(
-        model=MODEL_NAME,
-        contents=user_prompt,
-        config=types.GenerateContentConfig(
-            system_instruction=SYSTEM_PROMPT,
-            response_mime_type="application/json",
-        ),
+def _call_ollama(user_prompt: str) -> dict:
+    payload = {
+        "model": MODEL_NAME,
+        "prompt": user_prompt,
+        "system": SYSTEM_PROMPT,
+        "format": "json",
+        "stream": False,
+    }
+    request = urllib.request.Request(
+        OLLAMA_GENERATE_URL,
+        data=json.dumps(payload).encode("utf-8"),
+        headers={"Content-Type": "application/json"},
+        method="POST",
     )
-    raw = json.loads(response.text)
+    try:
+        with urllib.request.urlopen(request) as response:
+            body = json.loads(response.read().decode("utf-8"))
+    except urllib.error.URLError as exc:
+        raise RuntimeError(
+            f"Ollama API 호출에 실패했습니다 ({OLLAMA_GENERATE_URL}): {exc}"
+        ) from exc
+
+    raw_text = body.get("response") if isinstance(body, dict) else None
+    if not isinstance(raw_text, str) or not raw_text.strip():
+        raise ValueError("Ollama 응답에 유효한 response 텍스트가 없습니다.")
+
+    raw = json.loads(raw_text)
     if not isinstance(raw, dict):
         raise ValueError("모델 응답 JSON 최상위는 object(dict)여야 합니다.")
     return _build_command_ticket(raw)
@@ -137,11 +140,10 @@ def _save_ticket(ticket: dict) -> Path:
 
 
 def main() -> None:
-    api_key = _require_api_key()
     summary = _read_environment_summary()
     user_prompt = _build_user_prompt(summary)
     try:
-        ticket = _call_gemini(api_key, user_prompt)
+        ticket = _call_ollama(user_prompt)
         output_path = _save_ticket(ticket)
     except Exception as exc:
         print(f"ERROR: Command Ticket 생성에 실패했습니다: {exc}", file=sys.stderr)

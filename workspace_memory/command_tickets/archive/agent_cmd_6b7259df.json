@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.95,
+  "steering_angle": -0.25,
+  "max_duration_ms": 1000,
+  "natural_language_source": "현재 좌측이 최소 여유 공간을 가진 상태이므로, 좌회전을 통해 주행을 이어나가기로 결정했습니다."
+}

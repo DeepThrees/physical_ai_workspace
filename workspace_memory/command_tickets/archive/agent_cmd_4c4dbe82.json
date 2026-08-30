@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.4,
+  "steering_angle": 0.0,
+  "max_duration_ms": 1000,
+  "natural_language_source": "현재 전방 여유 공간이 2.58m 이상으로 직진합니다."
+}

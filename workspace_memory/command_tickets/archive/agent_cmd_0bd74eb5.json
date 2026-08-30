@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.5,
+  "steering_angle": 0.3,
+  "max_duration_ms": 1000,
+  "natural_language_source": "주변 환경에서 우측 여유 공간이 부족하여 우측으로 조향하여 안전한 경로를 선택합니다."
+}
