@@ -86,3 +86,14 @@
   - 360도 LiDAR의 경계선 인덱스를 부드럽게 잇는 Wrap-around 로직 적용
   - 추출된 거리 데이터를 LLM이 이해할 수 있는 자연어 문장으로 번역하여 `workspace_memory/environment_summary.txt`에 실시간 기록
   - 디스크 I/O 과부하를 막기 위한 2Hz(0.5초) 쓰기 스로틀링(Throttling) 적용 및 실시간 터미널 출력 확인
+
+## Phase 7 — 완전 자율주행 루프(Continuous Loop) 완성 및 한계 도출
+
+- [X] `agents/run_loop.py` 관제탑(Loop) 스크립트 구현
+  - 에이전트(`autonomous_agent.py`)와 방화벽(`process_workspace`)을 무한 순차 실행하는 관제탑 구축
+  - 하드코딩 프롬프트를 제거하고, LiDAR 번역기가 작성한 `environment_summary.txt`를 동적으로 읽도록 에이전트 리팩토링
+  - 파일 읽기 경합(Race Condition) 방지 및 API Rate Limit 회피(1.5초 대기) 로직 적용
+- [X] End-to-End 자율주행 E2E 테스트 성공 및 아키텍처 한계(Latency) 확인
+  - **[성공]:** 센서(눈) → 번역기 → LLM(뇌) → 장고(방화벽) → ROS2(근육)로 이어지는 100% 자동화 파이프라인 작동 확인
+  - **[한계 발견]:** 클라우드 기반 LLM(Gemini)의 네트워크 지연(API 응답 1~2초)과 프로세스 재시동 오버헤드로 인해 최종 제어 주기가 3~4초로 길어짐
+  - **[인사이트]:** 실시간 물리 제어(Real-time Control)에서 클라우드 VLM/LLM 단독 구동 시, 반응 지연으로 인한 지그재그 주행(벽 충돌 후 뒤늦은 조향) 등 치명적 한계가 발생함을 직접 확인. (향후 Local SLM(클라우드 API Latency 없는 Small Language Model, PC나 로봇 보드안에서 직접 돌아감) 도입이나 MPC 등 기존 제어 알고리즘과의 하이브리드 아키텍처 연구 필요성 도출)

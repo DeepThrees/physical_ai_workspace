@@ -10,6 +10,7 @@ import json
 import os
 import secrets
 import sys
+import time
 from pathlib import Path
 
 from google import genai
@@ -22,11 +23,6 @@ SYSTEM_PROMPT = (
     "조향각(-0.5~0.5)을 결정해."
 )
 
-ENVIRONMENT_SUMMARY = (
-    "현재 이동 속도는 1.0m/s. 전방은 5m 여유, 좌측에 0.3m 거리의 장애물 "
-    "감지(충돌 위험 높음), 우측은 2m 여유 공간 확보됨."
-)
-
 ROBOT_ID = "PHYSICAL-AGENT-01"
 COMMAND_TYPE = "ackermann"
 MAX_DURATION_MS = 1000
@@ -37,13 +33,34 @@ VELOCITY_MAX = 1.0
 STEERING_MIN = -0.5
 STEERING_MAX = 0.5
 
+SENSOR_WAIT_MESSAGE = "센서 데이터 대기 중..."
+SUMMARY_READ_RETRIES = 3
+SUMMARY_READ_INTERVAL_SEC = 0.2
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 TICKETS_DIR = PROJECT_ROOT / "workspace_memory" / "command_tickets"
+SUMMARY_PATH = PROJECT_ROOT / "workspace_memory" / "environment_summary.txt"
 
-USER_PROMPT = f"""다음 주변 환경 및 센서 요약을 분석하고, 제어 명령을 JSON으로만 응답해.
+
+def _read_environment_summary() -> str:
+    """`environment_summary.txt`를 읽고, 없거나 비면 대기 문구를 반환한다."""
+    for attempt in range(SUMMARY_READ_RETRIES):
+        try:
+            text = SUMMARY_PATH.read_text(encoding="utf-8").strip()
+        except (FileNotFoundError, OSError):
+            text = ""
+        if text:
+            return text
+        if attempt < SUMMARY_READ_RETRIES - 1:
+            time.sleep(SUMMARY_READ_INTERVAL_SEC)
+    return SENSOR_WAIT_MESSAGE
+
+
+def _build_user_prompt(summary: str) -> str:
+    return f"""다음 주변 환경 및 센서 요약을 분석하고, 제어 명령을 JSON으로만 응답해.
 
 환경 요약:
-{ENVIRONMENT_SUMMARY}
+{summary}
 
 반드시 아래 키를 모두 포함해:
 - robot_id: "{ROBOT_ID}"
@@ -93,11 +110,11 @@ def _build_command_ticket(raw: dict) -> dict:
     }
 
 
-def _call_gemini(api_key: str) -> dict:
+def _call_gemini(api_key: str, user_prompt: str) -> dict:
     client = genai.Client(api_key=api_key)
     response = client.models.generate_content(
         model=MODEL_NAME,
-        contents=USER_PROMPT,
+        contents=user_prompt,
         config=types.GenerateContentConfig(
             system_instruction=SYSTEM_PROMPT,
             response_mime_type="application/json",
@@ -121,8 +138,10 @@ def _save_ticket(ticket: dict) -> Path:
 
 def main() -> None:
     api_key = _require_api_key()
+    summary = _read_environment_summary()
+    user_prompt = _build_user_prompt(summary)
     try:
-        ticket = _call_gemini(api_key)
+        ticket = _call_gemini(api_key, user_prompt)
         output_path = _save_ticket(ticket)
     except Exception as exc:
         print(f"ERROR: Command Ticket 생성에 실패했습니다: {exc}", file=sys.stderr)

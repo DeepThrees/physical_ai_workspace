@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.5,
+  "steering_angle": 0.15,
+  "max_duration_ms": 1000,
+  "natural_language_source": "우측 여유 공간이 가장 적으므로, 충돌 회피를 위해 좌측으로 미세하게 조향하며 적절한 속도로 전진합니다."
+}

@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.75,
+  "steering_angle": -0.1,
+  "max_duration_ms": 1000,
+  "natural_language_source": "전방 여유 공간이 충분하여 적정 속도로 전진하며, 좌측 여유 공간이 우측보다 좁아 안전을 위해 미세하게 우측으로 조향합니다."
+}
