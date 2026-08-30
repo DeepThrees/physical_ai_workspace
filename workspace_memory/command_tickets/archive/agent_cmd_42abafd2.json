@@ -1,0 +1,8 @@
+{
+  "robot_id": "PHYSICAL-AGENT-01",
+  "command_type": "ackermann",
+  "target_velocity": 0.2,
+  "steering_angle": 0.4,
+  "max_duration_ms": 1000,
+  "natural_language_source": "좌측 0.3m 장애물과의 충돌 위험이 높아 현재 속도를 크게 줄이고, 우측으로 강하게 조향하여 장애물을 회피합니다."
+}

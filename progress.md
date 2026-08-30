@@ -77,3 +77,12 @@
 - [X] Ubuntu 네이티브 환경 연동 및 검증
   - `--system-site-packages` 옵션을 사용한 가상환경(venv) 구성으로 Django와 ROS2 시스템 라이브러리 간 브릿지 환경 구축 완료
   - `rclpy` 임포트 및 초기화 테스트 정상 통과 확인
+
+## Phase 6 — Perception Node (LiDAR 번역기 구현 완료)
+
+- [X] `agents/lidar_translator.py` 인지(Perception) 노드 구현
+  - ROS2 `/scan` 토픽을 구독하여 LiDAR 센서 데이터를 실시간 수신 (QoS `sensor_data` 적용)
+  - 정면(0도), 좌측(+90도), 우측(-90도) 기준 ±5도 구간의 최솟값을 추출하여 센서 노이즈 및 결측치(`inf`) 완벽 방어
+  - 360도 LiDAR의 경계선 인덱스를 부드럽게 잇는 Wrap-around 로직 적용
+  - 추출된 거리 데이터를 LLM이 이해할 수 있는 자연어 문장으로 번역하여 `workspace_memory/environment_summary.txt`에 실시간 기록
+  - 디스크 I/O 과부하를 막기 위한 2Hz(0.5초) 쓰기 스로틀링(Throttling) 적용 및 실시간 터미널 출력 확인

@@ -49,7 +49,7 @@ USER_PROMPT = f"""다음 주변 환경 및 센서 요약을 분석하고, 제어
 - robot_id: "{ROBOT_ID}"
 - command_type: "{COMMAND_TYPE}"
 - target_velocity: 목표 속도 (float, {VELOCITY_MIN}~{VELOCITY_MAX})
-- steering_angle: 조향각 (float, {STEERING_MIN}~{STEERING_MAX}, 우측 양수 / 좌측 음수)
+- steering_angle: 조향각 (float, {STEERING_MIN}~{STEERING_MAX}, 좌측 양수 / 우측 음수)
 - max_duration_ms: {MAX_DURATION_MS}
 - natural_language_source: 현재 환경을 분석하고 왜 이런 제어 결정을 내렸는지 1~2줄 설명
 """
