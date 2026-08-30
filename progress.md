@@ -67,3 +67,13 @@
 - [X] End-to-End 파이프라인 통합 테스트 성공
   - AI 에이전트가 생성한 JSON 명령서를 `workspace_memory/command_tickets/` 디렉토리에 비동기 저장
   - Django의 `process_workspace` 커맨드가 이를 읽어 [티켓 생성 -> 방화벽 검열(APPROVED) -> 실행(Dispatch)] 하는 전체 파이프라인 100% 정상 작동 확인
+
+## Phase 5 — ROS2 Execution Bridge (근육 연결 완료)
+
+- [X] `apps/execution/services.py` 내에 실제 ROS2 노드(`rclpy`) 연동 구현
+  - 장고 방화벽을 통과한 `APPROVED` 상태의 티켓을 읽어 ROS2 제어 명령으로 변환
+  - `django_execution_bridge` 임시 노드를 생성하여 `/drive` 토픽으로 `AckermannDriveStamped` 메시지 퍼블리시
+  - 시뮬레이터 또는 실제 로봇이 없는 환경에서도 장고(Django) 서버가 뻗지 않도록 `try-except` 임포트 방어 로직 및 에러 핸들링 적용
+- [X] Ubuntu 네이티브 환경 연동 및 검증
+  - `--system-site-packages` 옵션을 사용한 가상환경(venv) 구성으로 Django와 ROS2 시스템 라이브러리 간 브릿지 환경 구축 완료
+  - `rclpy` 임포트 및 초기화 테스트 정상 통과 확인
